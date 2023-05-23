@@ -1,17 +1,6 @@
 # mermaid-test
 
 ```mermaid
-graph LR;
-  Start --> login_fail[User cannot login];
-  login_fail --> is_outside_network[Is the user outside the UCL network but trying to connect directly?];
-  is_outside_network -- no --> is_password_wrong[Are they using the right username and password?];
-  is_password_wrong -- maybe --> check_password;
-  is_outside_network -- yes --> use_vpn_or_gateway(Try connecting via the VPN or the SSH Gateway);
-```
-  
-
-
-```mermaid
 graph TD
   login_fail[User fails to log in with SSH]
   
@@ -19,7 +8,9 @@ graph TD
   what_symptom{What symptom do we see?}
   what_symptom -- Host Key Has Changed --> changed_hostkeys
   what_symptom -- Connection Time-Out with No Banner --> wrong_network
-  what_symptom -- Permission Denied --> perm_denied
+  what_symptom -- Permission Denied --> uhhhh[There are some different kinds of this \n and I can't remember them off-hand]
+  
+  uhhhh --> perm_denied
 
   changed_hostkeys{*Have* the host keys changed?}
   changed_hostkeys -- yes --> get_new_host_key(Delete old host key, accept new host key.)
@@ -33,9 +24,7 @@ graph TD
   network_problems_other(This seems like a network problem we can't fix.)
   
   perm_denied[Check username and password, if using password]
-  perm_denied --> uhhhh[There are some different kinds of this and I can't remember them]
-  
-  uhhhh --> is_openssh
+  perm_denied --> is_openssh
   
   is_openssh{Is user using OpenSSH?}
   is_openssh -- yes --> openssh_diag_flow(OpenSSH diagnostics)
